@@ -16,29 +16,28 @@ ask = Ask(app, "/")
 # in the main thread.
 
 threading.Thread(target=lambda: rospy.init_node('test_node', disable_signals=True)).start()
-pub = rospy.Publisher('test_pub', String, queue_size=1)
+pub = rospy.Publisher('naviIntent', String, queue_size=1)
 NGROK = rospy.get_param('/ngrok', None)
 
 
 @ask.launch
 def launch():
     '''
-    Executed when launching skill: say "Alexa, ask tester"
+    Executed when launching skill.
+    To invoke skill: say "Alexa, open kah toe"
     '''
-    welcome_sentence = 'Hello, this is a test skill. Please state a command.'
+    welcome_sentence = 'Hello, this is kah toe, your personal robotics assistant.'
     return question(welcome_sentence)
 
 
-@ask.intent('TestIntent', default={'name': None})
-def test_intent_function(name):
+@ask.intent('NavigationIntent', default={'location':""})
+def navi_intent_function(location):
     '''
-    Executed when "TestIntent" is called:
-    say "Alexa, ask tester to say (first name of a person)"
-    Note that the 'intent_name' argument of the decorator @ask.intent
-    must match the name of the intent in the Alexa skill.
+    Executed when NavigationIntent is called:
+    To invoke navigation intent say "go to {location} / move to {location} / bring me to {location}"
     '''
-    pub.publish(name)
-    return statement('I have published the following name to a ROS topic: {0}.'.format(name))
+    pub.publish("x:1.0 y:1.0")
+    return statement('Ok, I am on the way to the {}.'.format(location))
 
 
 @ask.session_ended
@@ -48,8 +47,9 @@ def session_ended():
 
 if __name__ == '__main__':
     if NGROK:
+        ip='10.10.7.220'
         print 'NGROK mode'
-        app.run(host=os.environ['ROS_IP'], port=5000)
+        app.run(host=ip, port=5000)
     else:
         print 'Manual tunneling mode'
         dirpath = os.path.dirname(__file__)

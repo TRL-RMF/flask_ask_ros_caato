@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "tester",
+            "invocationName": "kah toe",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -16,19 +16,42 @@
                     "samples": []
                 },
                 {
-                    "name": "TestIntent",
+                    "name": "NavigationIntent",
                     "slots": [
                         {
-                            "name": "name",
-                            "type": "AMAZON.FirstName"
+                            "name": "location",
+                            "type": "Location",
+                            "multipleValues": {
+                                "enabled": true
+                            }
                         }
                     ],
                     "samples": [
-                        "say {name}"
+                        "go to {location}",
+                        "let's go to {location}",
+                        "bring me to {location}",
+                        "move to {location}",
+                        "can you go to {location}",
+                        "drive to {location}"
                     ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
                 }
             ],
-            "types": []
+            "types": [
+                {
+                    "name": "Location",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "Main door"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     }
 }
