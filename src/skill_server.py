@@ -5,7 +5,9 @@ import threading
 
 from flask import Flask
 from flask_ask import Ask, question, statement
-from std_msgs.msg import String
+# from std_msgs.msg import String
+from geometry_msgs.msg import PoseStamped
+
 
 app = Flask(__name__)
 ask = Ask(app, "/")
@@ -16,7 +18,7 @@ ask = Ask(app, "/")
 # in the main thread.
 
 threading.Thread(target=lambda: rospy.init_node('test_node', disable_signals=True)).start()
-pub = rospy.Publisher('naviIntent', String, queue_size=1)
+pub = rospy.Publisher('naviIntent', PoseStamped, queue_size=10)
 NGROK = rospy.get_param('/ngrok', None)
 
 
@@ -36,7 +38,23 @@ def navi_intent_function(location):
     Executed when NavigationIntent is called:
     To invoke navigation intent say "go to {location} / move to {location} / bring me to {location}"
     '''
-    pub.publish("x:1.0 y:1.0")
+    msg = PoseStamped()
+    msg.header.seq = 1
+    msg.header.frame_id = "map"
+    msg.header.stamp = rospy.Time.now()
+    
+    msg.pose.position.x = 1.0
+    msg.pose.position.y = 1.0
+    msg.pose.position.z = 0.0
+   
+    # quaternion = tf.transformations.quaternion_from_euler(0, 0, -math.radians(wp[0].transform.rotation.yaw))
+    msg.pose.orientation.x = 0.0
+    msg.pose.orientation.y = 0.0
+    msg.pose.orientation.z = 0.0
+    msg.pose.orientation.w = 0.0
+
+    pub.publish(msg)
+    
     return statement('Ok, I am on the way to the {}.'.format(location))
 
 
