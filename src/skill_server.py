@@ -18,7 +18,7 @@ ask = Ask(app, "/")
 # in the main thread.
 
 threading.Thread(target=lambda: rospy.init_node('test_node', disable_signals=True)).start()
-pub = rospy.Publisher('naviIntent', PoseStamped, queue_size=10)
+pub = rospy.Publisher('move_base_simple/goal', PoseStamped, queue_size=10)
 NGROK = rospy.get_param('/ngrok', None)
 
 
@@ -51,7 +51,7 @@ def navi_intent_function(location):
     msg.pose.orientation.x = 0.0
     msg.pose.orientation.y = 0.0
     msg.pose.orientation.z = 0.0
-    msg.pose.orientation.w = 0.0
+    msg.pose.orientation.w = 1.0
 
     pub.publish(msg)
     
@@ -65,7 +65,7 @@ def session_ended():
 
 if __name__ == '__main__':
     if NGROK:
-        ip='10.10.7.220'
+        ip='192.168.1.2'
         print 'NGROK mode'
         app.run(host=ip, port=5000)
     else:
