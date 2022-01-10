@@ -122,7 +122,7 @@ We have tested two ways to accomplish this:
 6. Run the skill server
    
    ``` bash
-   roslaunch flask_ask_ros start_skill_server.launch
+   roslaunch caato_alexa start_skill_server.launch
    ```
 
 [virt_srv]: https://github.com/3SpheresRoboticsProject/flask_ask_ros/raw/master/common/virt_serv.png "D-Link DIR-655 Virtual Server setting example"
