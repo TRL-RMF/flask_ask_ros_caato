@@ -27,12 +27,12 @@
                         }
                     ],
                     "samples": [
-                        "go to {location}",
-                        "let's go to {location}",
                         "bring me to {location}",
-                        "move to {location}",
-                        "can you go to {location}",
-                        "drive to {location}"
+                        "roll to {location}",
+                        "travel to {location}",
+                        "drive to {location}",
+                        "go to  {location}",
+                        "move to  {location}"
                     ]
                 },
                 {
@@ -46,12 +46,90 @@
                     "values": [
                         {
                             "name": {
-                                "value": "Main door"
+                                "value": " patrol"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "water cooler"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "the little hut"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "rojak place"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "mee siam place"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "mail room"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "laksa place"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "big place"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "roti place"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "main door"
                             }
                         }
                     ]
                 }
             ]
-        }
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "NavigationIntent",
+                    "delegationStrategy": "ALWAYS",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "location",
+                            "type": "Location",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.809752082253.1387322953990"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.809752082253.1387322953990",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Go where?"
+                    }
+                ]
+            }
+        ]
     }
 }
